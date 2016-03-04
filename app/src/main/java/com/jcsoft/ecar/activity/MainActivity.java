@@ -1,15 +1,34 @@
 package com.jcsoft.ecar.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.jcsoft.ecar.R;
+import com.jcsoft.ecar.base.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void loadXml() {
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public void getIntentData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void setListener() {
+
+    }
+
+    @Override
+    public void setData() {
+
     }
 }

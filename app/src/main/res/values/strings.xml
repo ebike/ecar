@@ -7,6 +7,11 @@
     <string name="client_timeout">网络请求失败，请检查你的网络设置</string>
     <string name="data_error">数据异常...</string>
     <string name="http_download_failed">下载失败</string>
+    <string name="login">登录</string>
+    <string name="password">密码</string>
+    <string name="register_action">点击注册</string>
+    <string name="book_install_action">预约安装</string>
+    <string name="forget_password">忘记密码？</string>
 
     <!-- CustomDialog -->
     <string name="prompt">提示</string>
