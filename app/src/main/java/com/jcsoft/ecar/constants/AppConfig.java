@@ -3,6 +3,7 @@ package com.jcsoft.ecar.constants;
 import android.media.MediaPlayer;
 import android.os.Environment;
 
+import com.jcsoft.ecar.bean.UserInfoBean;
 import com.readystatesoftware.viewbadger.BadgeView;
 
 /*
@@ -20,7 +21,7 @@ public class AppConfig {
     //调取过所有统计数据的日期
     public static String IS_USED_DATE = "isUsedDate";
     //当前用户信息
-//    public static UserInfoBean userInfoBean;
+    public static UserInfoBean userInfoBean;
     //用户被禁用或删除
     public static boolean isDisabled;
     public static int eventType;
