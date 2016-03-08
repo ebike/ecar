@@ -1,6 +1,5 @@
 package com.jcsoft.ecar.constants;
 
-import android.media.MediaPlayer;
 import android.os.Environment;
 
 import com.jcsoft.ecar.bean.UserInfoBean;
@@ -69,6 +68,6 @@ public class AppConfig {
     public static final String compressedImage = Environment.getExternalStorageDirectory() + "/ebike/compressedImage/";
     //底部菜单报警消息图标的角标组件
     public static BadgeView badge;
-    //报警铃声
-    public static MediaPlayer mediaPlayer;
+    //历史位置
+    public static final String CenterLngLat = "CenterLngLat";
 }

@@ -8,6 +8,17 @@
     <color name="font_gray">#999999</color>
     <color name="gray_1">#CCCCCC</color>
     <color name="gray_2">#E5E5E5</color>
+    <color name="gray_bg">#f9f9f9</color>
+    <color name="gray_border">#CCCCCC</color>
+    <color name="white_f5">#F5F5F5</color>
+
+    <color name="bottombar_bg">#FCFCFC</color>
+    <color name="bottombar_line">#D7D7D7</color>
+    <color name="bottombar_text">#9B9B9B</color>
+
+    <color name="chart_data">#0B6B90</color>
+    <color name="chart_unselect">#F8F8F8</color>
+    <color name="chart_select">#F3F3F3</color>
 
 
 
@@ -16,7 +27,6 @@
     <color name="dc_view_line">#e6e6e6</color>
     <color name="gray_dark">#1c1c1c</color>
     <color name="gray_3">#333333</color>
-    <color name="bottombar_text_selected">#FC5823</color>
     <color name="actionsheet_blue">#037BFF</color>
     <color name="actionsheet_red">#FD4A2E</color>
     <color name="actionsheet_gray">#8F8F8F</color>
@@ -28,7 +38,6 @@
     <color name="gray">#eaebed</color>
     <color name="list_selector_disable">#aaa</color>
     <color name="gray_6">#666666</color>
-    <color name="gray_border">#CCCCCC</color>
     <color name="province_line_border">#C7C7C7</color>
 
 

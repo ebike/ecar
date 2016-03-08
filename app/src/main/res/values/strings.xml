@@ -12,6 +12,31 @@
     <string name="register_action">点击注册</string>
     <string name="book_install_action">预约安装</string>
     <string name="forget_password">忘记密码？</string>
+    <string name="location">卫星定位</string>
+    <string name="driving_record">行车记录</string>
+    <string name="alarm_message">报警消息</string>
+    <string name="equipment_serial_number">设备编号：</string>
+    <string name="positioning_state">定位状态：</string>
+    <string name="positioning_date">定位时间：</string>
+    <string name="online_status">在线状态：</string>
+    <string name="acc">ACC：</string>
+    <string name="main_power">主电源：</string>
+    <string name="speed">速度：</string>
+    <string name="direction">方向：</string>
+    <string name="address">最后位置：</string>
+    <string name="track_prompt">途经点</string>
+    <string name="track_start">起点</string>
+    <string name="track_end">终点</string>
+    <string name="chart_today_mileage">今日里程</string>
+    <string name="chart_average_speed">平均速度</string>
+    <string name="chart_max_speed">最高速度</string>
+    <string name="chart_min_speed">最低速度</string>
+
+    <string name="app_id">输入您讯飞的appid</string>
+    <string name="preference_default_tts_role">xiaoyan</string>
+    <string name="preference_key_tts_speed">tts_speed</string>
+    <string name="preference_key_tts_volume">tts_volume</string>
+    <string name="preference_key_tts_pitch">tts_pitch</string>
 
     <!-- CustomDialog -->
     <string name="prompt">提示</string>

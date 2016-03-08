@@ -56,7 +56,6 @@
             android:layout_toRightOf="@+id/iv_loginName"
             android:background="@null"
             android:hint="设备编号/车牌号码"
-            android:inputType="textVisiblePassword"
             android:textColor="@color/blue"
             android:textColorHint="@color/gray_1"
             android:textSize="16sp" />
