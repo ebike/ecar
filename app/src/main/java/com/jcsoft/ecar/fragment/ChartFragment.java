@@ -34,6 +34,7 @@ import com.jcsoft.ecar.http.HttpConstants;
 import com.jcsoft.ecar.utils.CommonUtils;
 import com.jcsoft.ecar.utils.PreferencesUtil;
 import com.jcsoft.ecar.utils.ReportUtils;
+import com.jcsoft.ecar.view.TopBarView;
 
 import org.xutils.common.util.KeyValue;
 import org.xutils.db.sqlite.WhereBuilder;
@@ -51,6 +52,8 @@ import java.util.List;
  * Created by jimmy on 15/12/28.
  */
 public class ChartFragment extends BaseFragment implements View.OnClickListener {
+    @ViewInject(R.id.top_bar)
+    TopBarView topBarView;
     @ViewInject(R.id.hsv_chart)
     HorizontalScrollView chartHorizontalScrollView;
     @ViewInject(R.id.bar_chart)
@@ -114,6 +117,12 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
         averageSpeedRelativeLayout.setOnClickListener(this);
         maxSpeedRelativeLayout.setOnClickListener(this);
         minSpeedRelativeLayout.setOnClickListener(this);
+        topBarView.setLeftCallback(new TopBarView.TopBarLeftCallback() {
+            @Override
+            public void setLeftOnClickListener() {
+                ((MainActivity) getActivity()).setMenuToggle();
+            }
+        });
     }
 
     @Override

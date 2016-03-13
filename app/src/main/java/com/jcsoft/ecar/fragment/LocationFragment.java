@@ -68,6 +68,7 @@ import com.jcsoft.ecar.utils.CommonUtils;
 import com.jcsoft.ecar.utils.MapUtils;
 import com.jcsoft.ecar.utils.PreferencesUtil;
 import com.jcsoft.ecar.utils.Utils;
+import com.jcsoft.ecar.view.TopBarView;
 import com.jcsoft.ecar.view.formview.FormTextDateTimeView;
 import com.jcsoft.ecar.view.formview.FormViewUtils;
 
@@ -90,6 +91,8 @@ import de.greenrobot.event.EventBus;
  */
 public class LocationFragment extends BaseFragment implements Runnable, View.OnClickListener,
         AMap.OnMapClickListener, AMapNaviListener, AMap.OnInfoWindowClickListener, GeocodeSearch.OnGeocodeSearchListener {
+    @ViewInject(R.id.top_bar)
+    TopBarView topBarView;
     @ViewInject(R.id.map_view)
     MapView mapView;
     @ViewInject(R.id.iv_traffic)
@@ -196,6 +199,12 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
         satelliteTextView.setOnClickListener(this);
         planeTextView.setOnClickListener(this);
         carStatusImageView.setOnClickListener(this);
+        topBarView.setLeftCallback(new TopBarView.TopBarLeftCallback() {
+            @Override
+            public void setLeftOnClickListener() {
+                ((MainActivity)getActivity()).setMenuToggle();
+            }
+        });
     }
 
     /**

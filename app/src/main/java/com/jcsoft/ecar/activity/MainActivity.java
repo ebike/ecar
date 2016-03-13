@@ -20,9 +20,11 @@ import com.jcsoft.ecar.event.ChangeLocationEvent;
 import com.jcsoft.ecar.fragment.AlarmMessageFragment;
 import com.jcsoft.ecar.fragment.ChartFragment;
 import com.jcsoft.ecar.fragment.LocationFragment;
+import com.jcsoft.ecar.fragment.NavigationFragment;
 import com.jcsoft.ecar.utils.ViewPagerUtils;
 import com.jcsoft.ecar.view.NotSlideViewPager;
 import com.readystatesoftware.viewbadger.BadgeView;
+import com.slidingmenu.lib.SlidingMenu;
 
 import org.xutils.ex.DbException;
 import org.xutils.view.annotation.ViewInject;
@@ -60,10 +62,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ViewPagerFragmentAdapter viewPagerFragmentAdapter;
     private long mExitTime = 0;
     private int fragmentPosition = 0;
+    private SlidingMenu menu;//左滑菜单
 
     @Override
     public void loadXml() {
         setContentView(R.layout.activity_main);
+        //初始化左边栏
+        initSlidingMenu();
+    }
+
+    private void initSlidingMenu() {
+        menu = new SlidingMenu(this);
+        menu.setMode(SlidingMenu.LEFT);
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+        menu.setShadowWidthRes(R.dimen.shadow_width);
+        menu.setShadowDrawable(R.drawable.shadow);
+        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+//        menu.setBehindOffset(DensityUtil.screenWidth() / 4);
+        menu.setFadeDegree(0.35f);
+        menu.setFadeEnabled(true);
+        menu.attachToActivity(this, SlidingMenu.SLIDING_CONTENT);
+        menu.setMenu(R.layout.menu_frame);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.menu_frame, new NavigationFragment())
+                .commit();
     }
 
     @Override
@@ -88,12 +111,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         //初始化viewpager
         imageViews = new ArrayList<ImageView>();
         imageViews.add(locationImageView);
-        imageViews.add(alarmImageView);
         imageViews.add(chartImageView);
+        imageViews.add(alarmImageView);
         textViews = new ArrayList<TextView>();
         textViews.add(locationTextView);
-        textViews.add(alarmTextView);
         textViews.add(chartTextView);
+        textViews.add(alarmTextView);
         //初始化ViewPager
         viewPager.setOffscreenPageLimit(3);
         // 包含3个fragment界面
@@ -163,6 +186,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
+    public void onBackPressed() {
+        if (menu.isMenuShowing()) {
+            menu.showContent();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
@@ -174,5 +206,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             return true;
         }
         return false;
+    }
+
+    //伸缩左侧菜单
+    public void setMenuToggle() {
+        if (menu != null) {
+            menu.toggle();
+        }
     }
 }

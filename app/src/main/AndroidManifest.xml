@@ -194,11 +194,27 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity android:name=".activity.RegisterActivity"/>
-        <activity android:name=".activity.BookInstallActivity"/>
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BookInstallActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SimpleNaviActivity"
             android:configChanges="orientation|keyboardHidden" />
+        <activity
+            android:name=".activity.BaseInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CarInformationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WebActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

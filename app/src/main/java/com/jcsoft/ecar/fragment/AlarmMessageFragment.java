@@ -26,6 +26,7 @@ import com.jcsoft.ecar.http.DRequestParamsUtils;
 import com.jcsoft.ecar.http.HttpConstants;
 import com.jcsoft.ecar.utils.CommonUtils;
 import com.jcsoft.ecar.view.PullListFragmentHandler;
+import com.jcsoft.ecar.view.TopBarView;
 import com.jcsoft.ecar.view.pullrefresh.EmptyViewForList;
 import com.jcsoft.ecar.view.pullrefresh.PullToRefreshBase;
 import com.jcsoft.ecar.view.pullrefresh.PullToRefreshListView;
@@ -45,6 +46,8 @@ import java.util.List;
  * Created by jimmy on 15/12/28.
  */
 public class AlarmMessageFragment extends BaseListFragment {
+    @ViewInject(R.id.top_bar)
+    TopBarView topBarView;
     @ViewInject(R.id.pull_list_view)
     PullToRefreshListView pullToRefreshListView;
     @ViewInject(R.id.empty_view)
@@ -95,6 +98,12 @@ public class AlarmMessageFragment extends BaseListFragment {
     }
 
     private void setListener() {
+        topBarView.setLeftCallback(new TopBarView.TopBarLeftCallback() {
+            @Override
+            public void setLeftOnClickListener() {
+                ((MainActivity)getActivity()).setMenuToggle();
+            }
+        });
         pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
 
             @Override

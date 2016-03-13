@@ -6,10 +6,14 @@
     android:orientation="vertical">
 
     <com.jcsoft.ecar.view.TopBarView
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:center_text="@string/location"
-        app:has_center="true" />
+        app:has_center="true"
+        app:has_left="true"
+        app:has_left_clickable="true"
+        app:left_icon="@mipmap/icon_title_user" />
 
     <FrameLayout
         android:layout_width="match_parent"
