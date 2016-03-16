@@ -24,6 +24,8 @@ import org.xutils.x;
  * 车辆资料
  */
 public class CarInformationActivity extends BaseActivity {
+    @ViewInject(R.id.rlvv_car_number)
+    RowLabelValueView carNumberRowLabelValueView;
     @ViewInject(R.id.rlvv_brand)
     RowLabelValueView brandRowLabelValueView;
     @ViewInject(R.id.rlvv_models)
@@ -32,10 +34,14 @@ public class CarInformationActivity extends BaseActivity {
     RowLabelValueView motorNumberRowLabelValueView;
     @ViewInject(R.id.rlvv_frame_number)
     RowLabelValueView frameNumberRowLabelValueView;
+    @ViewInject(R.id.rlvv_car_color)
+    RowLabelValueView carColorRowLabelValueView;
     @ViewInject(R.id.rlvv_buy_date)
     RowLabelValueView buyDateRowLabelValueView;
     @ViewInject(R.id.rlvv_buy_price)
     RowLabelValueView buyPriceRowLabelValueView;
+    @ViewInject(R.id.rlvv_car_photo)
+    RowLabelValueView carPhotoRowLabelValueView;
     @ViewInject(R.id.iv_car_photo)
     ImageView carPhotoImageView;
     //车辆信息
@@ -55,15 +61,18 @@ public class CarInformationActivity extends BaseActivity {
     @Override
     public void init() {
         if (carInfoBean != null) {
+            carNumberRowLabelValueView.setValue(carInfoBean.getCarPlate());
             brandRowLabelValueView.setValue(carInfoBean.getCarBrand());
             modelsRowLabelValueView.setValue(carInfoBean.getCarModel());
             motorNumberRowLabelValueView.setValue(carInfoBean.getMotorNum());
             frameNumberRowLabelValueView.setValue(carInfoBean.getFrameNum());
+            carColorRowLabelValueView.setValue(carInfoBean.getCarColor());
             buyDateRowLabelValueView.setValue(carInfoBean.getCarDate());
             buyPriceRowLabelValueView.setValue("￥" + carInfoBean.getCarPrice());
+            carPhotoRowLabelValueView.setRightImage(R.mipmap.icon_camera);
             ImageOptions imageOptions = new ImageOptions.Builder()
-//                    .setLoadingDrawableId(R.mipmap.icon_default_ebike)
-//                    .setFailureDrawableId(R.mipmap.icon_default_ebike)
+                    .setLoadingDrawableId(R.mipmap.img_default_car)
+                    .setFailureDrawableId(R.mipmap.img_default_car)
                     .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
                     .build();
             x.image().bind(carPhotoImageView, carInfoBean.getCarPic(), imageOptions);

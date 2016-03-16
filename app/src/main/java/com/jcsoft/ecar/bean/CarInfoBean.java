@@ -6,79 +6,80 @@ import java.io.Serializable;
  * 车辆信息
  * Created by jimmy on 16/1/10.
  */
-public class CarInfoBean implements Serializable{
+public class CarInfoBean implements Serializable {
 
     private int carId;
+    private String carPlate;
     private String carBrand;
     private String carModel;
-    private String carType;
-    private String carPic;
     private String frameNum;
     private String motorNum;
-    private int carPrice;
+    private String carColor;
     private String carDate;
+    private int carPrice;
+    private String carPic;
 
     public CarInfoBean() {
-    }
-
-    public void setCarId(int carId) {
-        this.carId = carId;
-    }
-
-    public void setCarBrand(String carBrand) {
-        this.carBrand = carBrand;
-    }
-
-    public void setCarModel(String carModel) {
-        this.carModel = carModel;
-    }
-
-    public void setCarType(String carType) {
-        this.carType = carType;
-    }
-
-    public void setCarPic(String carPic) {
-        this.carPic = carPic;
-    }
-
-    public void setFrameNum(String frameNum) {
-        this.frameNum = frameNum;
-    }
-
-    public void setMotorNum(String motorNum) {
-        this.motorNum = motorNum;
     }
 
     public int getCarId() {
         return carId;
     }
 
+    public void setCarId(int carId) {
+        this.carId = carId;
+    }
+
+    public String getCarPlate() {
+        return carPlate;
+    }
+
+    public void setCarPlate(String carPlate) {
+        this.carPlate = carPlate;
+    }
+
     public String getCarBrand() {
         return carBrand;
+    }
+
+    public void setCarBrand(String carBrand) {
+        this.carBrand = carBrand;
     }
 
     public String getCarModel() {
         return carModel;
     }
 
-    public String getCarType() {
-        return carType;
-    }
-
-    public String getCarPic() {
-        return carPic;
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
     }
 
     public String getFrameNum() {
         return frameNum;
     }
 
+    public void setFrameNum(String frameNum) {
+        this.frameNum = frameNum;
+    }
+
     public String getMotorNum() {
         return motorNum;
     }
 
-    public void setCarPrice(int carPrice) {
-        this.carPrice = carPrice;
+    public void setMotorNum(String motorNum) {
+        this.motorNum = motorNum;
+    }
+
+    public String getCarColor() {
+        return carColor;
+    }
+
+    public void setCarColor(String carColor) {
+        this.carColor = carColor;
+    }
+
+    public String getCarDate() {
+        return carDate;
     }
 
     public void setCarDate(String carDate) {
@@ -89,7 +90,15 @@ public class CarInfoBean implements Serializable{
         return carPrice;
     }
 
-    public String getCarDate() {
-        return carDate;
+    public void setCarPrice(int carPrice) {
+        this.carPrice = carPrice;
+    }
+
+    public String getCarPic() {
+        return carPic;
+    }
+
+    public void setCarPic(String carPic) {
+        this.carPic = carPic;
     }
 }

@@ -56,6 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
         app:row_label_value_label="@string/name"
         app:row_label_value_top_line="1" />
 
@@ -64,20 +66,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
         app:row_label_value_label="@string/sex" />
 
     <com.jcsoft.ecar.view.RowLabelValueView
-        android:id="@+id/rlvv_id_card"
+        android:id="@+id/rlvv_contact_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
         app:row_label_value_label="@string/contact_phone" />
 
     <com.jcsoft.ecar.view.RowLabelValueView
-        android:id="@+id/rlvv_phone"
+        android:id="@+id/rlvv_work_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
         app:row_label_value_label="@string/work_phone" />
 
     <com.jcsoft.ecar.view.RowLabelValueView
@@ -85,6 +93,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:row_label_value_bottom_line="2"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
         app:row_label_value_label="@string/region" />
 
     <com.jcsoft.ecar.view.RowLabelValueView
@@ -92,6 +102,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:row_label_value_bottom_line="1"
+        app:row_label_value_can_click="true"
+        app:row_label_value_has_right_arrow="true"
         app:row_label_value_label="@string/detailed_address" />
 
     <com.jcsoft.ecar.view.RowLabelValueView

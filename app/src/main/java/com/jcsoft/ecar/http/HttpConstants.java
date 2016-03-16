@@ -46,7 +46,7 @@ public class HttpConstants {
     //返回车辆基本信息
     public static String getCarInfoUrl() {
         StringBuffer sb = new StringBuffer(baseUrl);
-        sb.append("/user/getCarInfo.do");
+        sb.append("/car/getCarInfo.do");
         sb.append("?carId=").append(AppConfig.userInfoBean.getCarId());
         return sb.toString();
     }
@@ -97,7 +97,7 @@ public class HttpConstants {
     //获取用户基本信息
     public static String getUserInfo() {
         StringBuffer sb = new StringBuffer(baseUrl);
-        sb.append("/user/getUserInfo.do");
+        sb.append("/car/getUserInfo.do");
         sb.append("?carId=").append(AppConfig.userInfoBean.getCarId());
         return sb.toString();
     }

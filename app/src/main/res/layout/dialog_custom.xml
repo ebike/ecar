@@ -29,7 +29,7 @@
             android:minHeight="40dp"
             android:orientation="vertical">
 
-            <com.jcsoft.emsystem.view.JustifyTextView
+            <com.jcsoft.ecar.view.JustifyTextView
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
