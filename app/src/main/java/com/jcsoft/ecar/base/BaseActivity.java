@@ -9,16 +9,24 @@ import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jcsoft.ecar.activity.LoginActivity;
+import com.jcsoft.ecar.bean.CarLikeImeiBean;
+import com.jcsoft.ecar.bean.ResponseBean;
+import com.jcsoft.ecar.callback.DCommonCallback;
 import com.jcsoft.ecar.callback.DSingleDialogCallback;
 import com.jcsoft.ecar.constants.AppConfig;
 import com.jcsoft.ecar.event.FinishActivityEvent;
 import com.jcsoft.ecar.event.OnlineExceptionEvent;
+import com.jcsoft.ecar.http.DHttpUtils;
+import com.jcsoft.ecar.http.HttpConstants;
 import com.jcsoft.ecar.utils.CommonUtils;
 import com.jcsoft.ecar.utils.DensityUtil;
 import com.jcsoft.ecar.utils.PreferencesUtil;
 import com.jcsoft.ecar.view.LoadingDialog;
 
+import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.Set;
@@ -221,14 +229,26 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     public void logout() {
-        AppConfig.loginName = "";
-        AppConfig.password = "";
-        AppConfig.userInfoBean = null;
-        preferencesUtil.setPrefString(this, AppConfig.LOGIN_NAME, "");
-        preferencesUtil.setPrefString(this, AppConfig.PASSWORD, "");
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        EventBus.getDefault().post(new FinishActivityEvent(true, "BaseActivity"));
+        RequestParams params = new RequestParams(HttpConstants.getLogoutUrl());
+        DHttpUtils.get_String(this, true, params, new DCommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                ResponseBean<Object> bean = new Gson().fromJson(result, new TypeToken<ResponseBean<CarLikeImeiBean>>() {
+                }.getType());
+                if (bean.getCode() == 1) {
+                    AppConfig.loginName = "";
+                    AppConfig.password = "";
+                    AppConfig.userInfoBean = null;
+                    preferencesUtil.setPrefString(BaseActivity.this, AppConfig.LOGIN_NAME, "");
+                    preferencesUtil.setPrefString(BaseActivity.this, AppConfig.PASSWORD, "");
+                    Intent intent = new Intent(BaseActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    EventBus.getDefault().post(new FinishActivityEvent(true, "BaseActivity"));
+                } else {
+                    showShortText(bean.getErrmsg());
+                }
+            }
+        });
     }
 
 }

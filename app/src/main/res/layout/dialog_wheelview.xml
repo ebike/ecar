@@ -46,14 +46,14 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.jcsoft.emsystem.view.wheel.WheelView
+        <com.jcsoft.ecar.view.wheel.WheelView
             android:id="@+id/wheelView_view1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1" />
 
-        <com.jcsoft.emsystem.view.wheel.WheelView
+        <com.jcsoft.ecar.view.wheel.WheelView
             android:id="@+id/wheelView_view2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
             android:layout_weight="1"
             android:visibility="gone" />
 
-        <com.jcsoft.emsystem.view.wheel.WheelView
+        <com.jcsoft.ecar.view.wheel.WheelView
             android:id="@+id/wheelView_view3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

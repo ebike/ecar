@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
@@ -29,7 +31,7 @@ import com.jcsoft.ecar.utils.CommonUtils;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ViewInject;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
     @ViewInject(R.id.rl_rootView)
     RelativeLayout rootViewRL;
     @ViewInject(R.id.iv_loginName)
@@ -82,30 +84,32 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         registerTV.setOnClickListener(this);
         forgetPasswordTV.setOnClickListener(this);
         bookInstallTV.setOnClickListener(this);
-        loginNameET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    loginNameIV.setImageResource(R.mipmap.icon_login_name_focus);
-                    loginNameLine.setBackgroundColor(getResources().getColor(R.color.blue));
-                } else {
-                    loginNameIV.setImageResource(R.mipmap.icon_login_name);
-                    loginNameLine.setBackgroundColor(getResources().getColor(R.color.gray_2));
-                }
-            }
-        });
-        passwordET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    passwordIV.setImageResource(R.mipmap.icon_login_password_focus);
-                    passwordLine.setBackgroundColor(getResources().getColor(R.color.blue));
-                } else {
-                    passwordIV.setImageResource(R.mipmap.icon_login_password);
-                    passwordLine.setBackgroundColor(getResources().getColor(R.color.gray_2));
-                }
-            }
-        });
+        loginNameET.addTextChangedListener(this);
+        passwordET.addTextChangedListener(this);
+//        loginNameET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    loginNameIV.setImageResource(R.mipmap.icon_login_name_focus);
+//                    loginNameLine.setBackgroundColor(getResources().getColor(R.color.blue));
+//                } else {
+//                    loginNameIV.setImageResource(R.mipmap.icon_login_name);
+//                    loginNameLine.setBackgroundColor(getResources().getColor(R.color.gray_2));
+//                }
+//            }
+//        });
+//        passwordET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    passwordIV.setImageResource(R.mipmap.icon_login_password_focus);
+//                    passwordLine.setBackgroundColor(getResources().getColor(R.color.blue));
+//                } else {
+//                    passwordIV.setImageResource(R.mipmap.icon_login_password);
+//                    passwordLine.setBackgroundColor(getResources().getColor(R.color.gray_2));
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -202,6 +206,38 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.tv_book_install://预约安装
                 startActivity(new Intent(LoginActivity.this, BookInstallActivity.class));
                 break;
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        String loginName = loginNameET.getText().toString().trim();
+        String password = passwordET.getText().toString().trim();
+        if (!CommonUtils.strIsEmpty(loginName)) {
+            loginNameIV.setImageResource(R.mipmap.icon_login_name_focus);
+            loginNameLine.setBackgroundColor(getResources().getColor(R.color.blue));
+            loginNameET.setTextColor(getResources().getColor(R.color.blue));
+        } else {
+            loginNameIV.setImageResource(R.mipmap.icon_login_name);
+            loginNameLine.setBackgroundColor(getResources().getColor(R.color.gray_2));
+        }
+        if (!CommonUtils.strIsEmpty(password)) {
+            passwordIV.setImageResource(R.mipmap.icon_login_password_focus);
+            passwordLine.setBackgroundColor(getResources().getColor(R.color.blue));
+            passwordET.setTextColor(getResources().getColor(R.color.blue));
+        } else {
+            passwordIV.setImageResource(R.mipmap.icon_login_password);
+            passwordLine.setBackgroundColor(getResources().getColor(R.color.gray_2));
         }
     }
 }

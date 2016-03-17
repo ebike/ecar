@@ -82,7 +82,7 @@ public class AlarmMessageFragment extends BaseListFragment {
         mHandler = new PullListFragmentHandler(this, pullToRefreshListView);
         isPrepared = true;
         init();
-        if (initPosition == 1) {
+        if (initPosition == 2) {
             requestDatas();
         }
         setListener();

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CityInfoHelper extends SQLiteOpenHelper {
 
-	private static String DB_NAME = "ebike_city.db";
+	private static String DB_NAME = "ecar_city.db";
     public static String COUNTRY_TABLE_NAME = "countryList";
     public static String PROVINCE_TABLE_NAME = "provinceList";
 	public static String CITY_TABLE_NAME = "cityList";

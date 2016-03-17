@@ -20,8 +20,8 @@ import java.io.InputStream;
  */
 public class ProvinceHelper {
     private final int BUFFER_SIZE = 1024;
-    public static final String DB_NAME = "ebike_city.db";
-    public static final String PACKAGE_NAME = "com.jcsoft.emsystem";
+    public static final String DB_NAME = "ecar_city.db";
+    public static final String PACKAGE_NAME = "com.jcsoft.ecar";
 
     public static final String DB_PATH = "/data"
             + Environment.getDataDirectory().getAbsolutePath() + "/" + PACKAGE_NAME;

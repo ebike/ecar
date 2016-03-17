@@ -105,7 +105,7 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
         View view = inflater.inflate(R.layout.fragment_chart, container, false);
         x.view().inject(this, view);
         isPrepared = true;
-        if (initPosition == 2) {
+        if (initPosition == 1) {
             requestDatas();
         }
         initListener();
