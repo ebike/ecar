@@ -25,14 +25,8 @@ public class AppConfig {
     public static boolean isDisabled;
     public static int eventType;
     public static String eventMsg;
-    //锁车状态
-    public static boolean isLock;
-    //正在执行锁车/解锁命令(1/0)
-    public static Integer isExecuteLock;
     //正在执行开启/关闭电子围栏命令(1/0)
     public static Integer isExecuteVF;
-    //执行的锁车是语音锁车/解锁，还是远程锁车/解锁(1：语音；2：远程)
-    public static Integer lockCarType;
     /**
      * 自定义字段类型
      */

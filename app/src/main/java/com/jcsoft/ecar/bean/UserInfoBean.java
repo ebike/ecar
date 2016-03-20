@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class UserInfoBean implements Serializable{
     private int carId;
     private long imei;
+    private String userId;
     private String telNum;
     private String userName;
     private int sex;
@@ -143,5 +144,13 @@ public class UserInfoBean implements Serializable{
 
     public String getOrgName() {
         return orgName;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

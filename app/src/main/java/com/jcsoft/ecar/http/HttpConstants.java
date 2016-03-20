@@ -155,4 +155,19 @@ public class HttpConstants {
         sb.append("?carId=").append(AppConfig.userInfoBean.getCarId());
         return sb.toString();
     }
+
+    //修改基本资料
+    public static String getUpdateUserUrl() {
+        StringBuffer sb = new StringBuffer(baseUrl);
+        sb.append("/car/updateUser.do");
+        return sb.toString();
+    }
+
+    //修改车辆资料
+    public static String getUpdateCarUrl() {
+        StringBuffer sb = new StringBuffer(baseUrl);
+        sb.append("/car/updateCar.do");
+        return sb.toString();
+    }
+
 }

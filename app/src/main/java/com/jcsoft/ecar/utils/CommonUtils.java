@@ -50,6 +50,8 @@ public class CommonUtils {
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
     public static final String DATE_YEAR_MONTH = "MM/dd";
+    public static final String DATE_YEAR_MONTH_CH = "MM月dd日";
+    public static final String DATE_YEAR_MONTH_DAY_CH = "yyyy年MM月dd日";
     private static PopupWindow popupWindow;
 
     /**
@@ -133,6 +135,20 @@ public class CommonUtils {
         SimpleDateFormat df = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
         Date date = df.parse(time);
         return DateToString(date, DATE_YEAR_MONTH);
+    }
+
+    //改变日期格式:yyyy-MM-dd  -->  MM月dd日
+    public static String changeDateFormat2(String time) throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
+        Date date = df.parse(time);
+        return DateToString(date, DATE_YEAR_MONTH_CH);
+    }
+
+    //改变日期格式:yyyy-MM-dd  -->  yyyy年MM月dd日
+    public static String changeDateFormat3(String time) throws ParseException {
+        SimpleDateFormat df = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
+        Date date = df.parse(time);
+        return DateToString(date, DATE_YEAR_MONTH_DAY_CH);
     }
 
     //时间差大于一周

@@ -8,6 +8,7 @@ public class TrackBean {
 
     private int carId;
     private String satelliteTime;
+    private String satelliteTimeStr;
     private int lon;
     private int lat;
     private int lonR;
@@ -98,5 +99,13 @@ public class TrackBean {
 
     public int getSourceType() {
         return sourceType;
+    }
+
+    public String getSatelliteTimeStr() {
+        return satelliteTimeStr;
+    }
+
+    public void setSatelliteTimeStr(String satelliteTimeStr) {
+        this.satelliteTimeStr = satelliteTimeStr;
     }
 }

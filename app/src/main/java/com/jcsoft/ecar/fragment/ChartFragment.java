@@ -12,12 +12,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jcsoft.ecar.R;
@@ -58,6 +65,8 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
     HorizontalScrollView chartHorizontalScrollView;
     @ViewInject(R.id.bar_chart)
     BarChart barChart;
+    @ViewInject(R.id.line_chart)
+    LineChart lineChart;
     @ViewInject(R.id.rl_today_mileage)
     RelativeLayout todayMileageRelativeLayout;
     @ViewInject(R.id.rl_average_speed)
@@ -175,10 +184,9 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
                             XUtil.db.save(bean.getData());
                         }
                         //初始报表
-                        BarData mBarData = getBarData();
-                        showChart(mBarData);
+                        initChart();
                         //赋值今日统计信息
-                        initViews();
+                        initViews(dayDataBeans.size() - 1);
                     } catch (DbException e) {
                         e.printStackTrace();
                     } catch (ParseException e) {
@@ -220,14 +228,69 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
         });
     }
 
-    private void initViews() {
-        todayMileageTextView.setText(dayDataBeans.get(dayDataBeans.size() - 1).getMileage() + "公里");
-        averageSpeedTextView.setText(dayDataBeans.get(dayDataBeans.size() - 1).getAvgSpeed() + "km/h");
-        maxSpeedTextView.setText(dayDataBeans.get(dayDataBeans.size() - 1).getMaxSpeed() + "km/h");
-        minSpeedTextView.setText(dayDataBeans.get(dayDataBeans.size() - 1).getMinSpeed() + "km/h");
+    private void initChart() throws ParseException {
+        initLineChart();
+        initBarChart();
+        if (which == 0) {
+            showLineChart(getLineData());
+        } else {
+            showBarChart(getBarData());
+        }
     }
 
-    private void showChart(BarData barData) {
+    private void initViews(int index) {
+        try {
+            topBarView.setCenterTextView(CommonUtils.changeDateFormat2(dayDataBeans.get(index).getDate()) + "行车记录");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        todayMileageTextView.setText(dayDataBeans.get(index).getMileage() + "公里");
+        averageSpeedTextView.setText(dayDataBeans.get(index).getAvgSpeed() + "km/h");
+        maxSpeedTextView.setText(dayDataBeans.get(index).getMaxSpeed() + "km/h");
+        minSpeedTextView.setText(dayDataBeans.get(index).getMinSpeed() + "km/h");
+    }
+
+    private void initLineChart() {
+        ReportUtils.setChartLayout(getActivity(), lineChart, dayDataBeans.size());
+        // 如果没有数据的时候，会显示这个
+        lineChart.setNoDataTextDescription("");
+        lineChart.setNoDataText("");
+        lineChart.setBackgroundColor(getResources().getColor(R.color.blue));
+        lineChart.setDrawBorders(false);  ////是否在折线图上添加边框
+        lineChart.setDescription("");// 数据描述
+        lineChart.setDrawGridBackground(false); // 是否显示表格颜色
+        lineChart.setTouchEnabled(false); // 设置是否可以触摸
+        lineChart.setDragEnabled(false);// 是否可以拖拽
+        lineChart.setScaleEnabled(false);// 是否可以缩放
+        lineChart.setPinchZoom(false);//
+        lineChart.setViewPortOffsets(88f, 0, 88f, 80f);
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setDrawAxisLine(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setSpaceBetweenLabels(0);
+        xAxis.setLabelsToSkip(0);
+        xAxis.setTextSize(14f);
+        xAxis.setYOffset(8f);
+        xAxis.setTextColor(getResources().getColor(R.color.white));
+        YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.setEnabled(false);
+        YAxis rightAxis = lineChart.getAxisRight();
+        rightAxis.setEnabled(false);
+        Legend mLegend = lineChart.getLegend(); // 设置比例图标示
+        mLegend.setEnabled(false);
+        lineChart.fitScreen();
+    }
+
+    private void showLineChart(LineData lineData) {
+        barChart.setVisibility(View.GONE);
+        lineChart.setVisibility(View.VISIBLE);
+        lineChart.setData(lineData); // 设置数据
+        lineChart.animateX(1000); // 立即执行的动画
+        scrollToRight(lineChart);
+    }
+
+    private void initBarChart() {
         ReportUtils.setChartLayout(getActivity(), barChart, dayDataBeans.size());
         // 如果没有数据的时候，会显示这个
         barChart.setNoDataTextDescription("");
@@ -236,11 +299,22 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
         barChart.setDrawBorders(false);  ////是否在折线图上添加边框
         barChart.setDescription("");// 数据描述
         barChart.setDrawGridBackground(false); // 是否显示表格颜色
-        barChart.setTouchEnabled(false); // 设置是否可以触摸
+        barChart.setTouchEnabled(true); // 设置是否可以触摸
         barChart.setDragEnabled(false);// 是否可以拖拽
         barChart.setScaleEnabled(false);// 是否可以缩放
         barChart.setPinchZoom(false);//
         barChart.setViewPortOffsets(0, 0, 0, 80f);
+        barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry entry, int dataSetIndex, Highlight highlight) {
+                initViews(entry.getXIndex());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
         XAxis xAxis = barChart.getXAxis();
         xAxis.setDrawAxisLine(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -257,19 +331,54 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
         Legend mLegend = barChart.getLegend(); // 设置比例图标示
         mLegend.setEnabled(false);
         barChart.fitScreen();
-        barChart.setData(barData); // 设置数据
-        barChart.animateXY(1000, 1000); // 立即执行的动画
-        scrollToRight();
     }
 
-    private void scrollToRight() {
+    private void showBarChart(BarData barData) {
+        barChart.setVisibility(View.VISIBLE);
+        lineChart.setVisibility(View.GONE);
+        barChart.setData(barData); // 设置数据
+        barChart.animateXY(1000, 1000); // 立即执行的动画
+        scrollToRight(barChart);
+    }
+
+    private void scrollToRight(final Chart chart) {
         handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
-                chartHorizontalScrollView.smoothScrollTo(barChart.getWidth(), 0);
+                chartHorizontalScrollView.smoothScrollTo(chart.getWidth(), 0);
             }
         });
+    }
+
+    private LineData getLineData() throws ParseException {
+        ArrayList<String> xValues = new ArrayList<String>();
+        for (int i = 0; i < dayDataBeans.size(); i++) {
+            if (dayDataBeans.get(i).getDate().equals(CommonUtils.getCurrentDateString(null))) {
+                xValues.add("今天");
+            } else {
+                xValues.add(CommonUtils.changeDateFormat1(dayDataBeans.get(i).getDate()));
+            }
+        }
+
+        ArrayList<Entry> yValues = new ArrayList<Entry>();
+        for (int i = 0; i < dayDataBeans.size(); i++) {
+            yValues.add(new Entry((float) dayDataBeans.get(i).getMileage(), i));
+        }
+        LineDataSet lineDataSet = new LineDataSet(yValues, "");
+        lineDataSet.setColor(getResources().getColor(R.color.chart_data));// 显示颜色
+        lineDataSet.setDrawValues(true);
+        lineDataSet.setValueTextColor(getResources().getColor(R.color.white));
+        lineDataSet.setValueTextSize(14f);
+        lineDataSet.setValueFormatter(ReportUtils.formatterOnePoint);
+        lineDataSet.setLineWidth(2f); // 线宽
+        lineDataSet.setCircleColorHole(getResources().getColor(R.color.chart_data));
+        lineDataSet.setCircleSize(3f);// 显示的圆形大小
+        lineDataSet.setCircleColor(getResources().getColor(R.color.chart_data));// 圆形的颜色
+        ArrayList<LineDataSet> lineDataSets = new ArrayList<LineDataSet>();
+        lineDataSets.add(lineDataSet);
+        LineData lineData = new LineData(xValues, lineDataSets);
+        return lineData;
     }
 
     private BarData getBarData() throws ParseException {
@@ -284,9 +393,6 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
         ArrayList<BarEntry> yValues = new ArrayList<BarEntry>();
         for (int i = 0; i < dayDataBeans.size(); i++) {
             switch (which) {
-                case 0:
-                    yValues.add(new BarEntry((float) dayDataBeans.get(i).getMileage(), i));
-                    break;
                 case 1:
                     yValues.add(new BarEntry((float) dayDataBeans.get(i).getAvgSpeed(), i));
                     break;
@@ -327,9 +433,7 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
                 which = 0;
                 //初始报表
                 try {
-                    barChart.setData(getBarData()); // 设置数据
-                    barChart.animateXY(1000, 1000); // 立即执行的动画
-                    scrollToRight();
+                    showLineChart(getLineData());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -346,9 +450,7 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
                 which = 1;
                 //初始报表
                 try {
-                    barChart.setData(getBarData()); // 设置数据
-                    barChart.animateXY(1000, 1000); // 立即执行的动画
-                    scrollToRight();
+                    showBarChart(getBarData());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -365,9 +467,7 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
                 which = 2;
                 //初始报表
                 try {
-                    barChart.setData(getBarData()); // 设置数据
-                    barChart.animateXY(1000, 1000); // 立即执行的动画
-                    scrollToRight();
+                    showBarChart(getBarData());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -384,9 +484,7 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
                 which = 3;
                 //初始报表
                 try {
-                    barChart.setData(getBarData()); // 设置数据
-                    barChart.animateXY(1000, 1000); // 立即执行的动画
-                    scrollToRight();
+                    showBarChart(getBarData());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

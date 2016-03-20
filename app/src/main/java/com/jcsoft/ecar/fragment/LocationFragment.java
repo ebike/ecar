@@ -78,7 +78,6 @@ import org.xutils.x;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -476,7 +475,7 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
                                         if (i != 0 && i < maxCount - 1) {
                                             addMarkerToMap(point,
                                                     getResources().getString(R.string.track_prompt),
-                                                    trackBean.getSatelliteTime(), trackBean.getSpeed(),
+                                                    trackBean.getSatelliteTimeStr(), trackBean.getSpeed(),
                                                     R.mipmap.icon_point, false);
                                         }
                                         i++;
@@ -485,11 +484,11 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
                                     TrackBean end = responseBean.getData().get(maxCount - 1);
                                     addMarkerToMap(points.get(0),
                                             getResources().getString(R.string.track_start),
-                                            start.getSatelliteTime(), start.getSpeed(),
+                                            start.getSatelliteTimeStr(), start.getSpeed(),
                                             R.mipmap.icon_marker_start, true);
                                     if (maxCount > 1) {
                                         addMarkerToMap(points.get(points.size() - 1), getResources()
-                                                        .getString(R.string.track_end), end.getSatelliteTime(),
+                                                        .getString(R.string.track_end), end.getSatelliteTimeStr(),
                                                 end.getSpeed(), R.mipmap.icon_marker_end, true);
                                     }
                                     //在地图上添加轨迹实线
@@ -642,7 +641,7 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
         } else {
             options.anchor(0.5f, 0.5f);
         }
-        options.snippet(CommonUtils.DateToString(new Date(time), "yyyy-MM-dd HH:mm:ss") + "\n" + String.valueOf(speed) + "km/h");
+        options.snippet(time + "\n" + String.valueOf(speed) + "km/h");
         options.draggable(false);
         BitmapDescriptor bd = BitmapDescriptorFactory.fromResource(drawableId);
         options.icon(bd);

@@ -216,7 +216,19 @@
         <activity
             android:name=".activity.WebActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.UpdateTextValueActivity"/>
+        <activity
+            android:name=".activity.UpdateTextValueActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".activity.UpdateSexActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PhotoAlbumListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PhotoSingleSelectionActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

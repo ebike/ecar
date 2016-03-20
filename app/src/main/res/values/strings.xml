@@ -65,6 +65,7 @@
     <string name="your_name">您的姓名</string>
     <string name="install_count">所需数量</string>
     <string name="pay_type">付款方式</string>
+    <string name="save">保存</string>
 
     <string name="app_id">输入您讯飞的appid</string>
     <string name="preference_default_tts_role">xiaoyan</string>
