@@ -19,6 +19,8 @@ public class AppConfig {
     public static String PASSWORD = "password";
     //调取过所有统计数据的日期
     public static String IS_USED_DATE = "isUsedDate";
+    //调取过所有统计数据的用户
+    public static String IS_USED_CARID = "isUsedCarId";
     //当前用户信息
     public static UserInfoBean userInfoBean;
     //用户被禁用或删除

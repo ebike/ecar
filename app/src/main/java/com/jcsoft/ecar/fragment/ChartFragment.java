@@ -141,7 +141,8 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
         }
         //每天调一次半月的统计数据
         String isUsedDate = PreferencesUtil.getPrefString(getActivity(), AppConfig.IS_USED_DATE, "");
-        if (!isUsedDate.equals(CommonUtils.getCurrentDateString(null))) {
+        String isUsedCarId = PreferencesUtil.getPrefString(getActivity(), AppConfig.IS_USED_CARID, "");
+        if (!(isUsedCarId.equals(AppConfig.userInfoBean.getCarId() + "") && isUsedDate.equals(CommonUtils.getCurrentDateString(null)))) {
             getSomeDayData();
         }
         //查询数据库中统计数据
@@ -217,6 +218,7 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
                         for (DayDataBean dataBean : dayDataBeans) {
                             XUtil.db.save(dataBean);
                         }
+                        PreferencesUtil.setPrefString(getActivity(), AppConfig.IS_USED_CARID, AppConfig.userInfoBean.getCarId() + "");
                         PreferencesUtil.setPrefString(getActivity(), AppConfig.IS_USED_DATE, CommonUtils.getCurrentDateString(null));
                     } else {
                         showShortText(bean.getErrmsg());

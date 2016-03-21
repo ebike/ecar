@@ -228,6 +228,7 @@ public class RegisterActivity extends BaseActivity {
                                 }
                             });
                         } else {
+                            informationIdCardRowLabelEditView.requestFocus();
                             showShortText(bean.getErrmsg());
                         }
                     }

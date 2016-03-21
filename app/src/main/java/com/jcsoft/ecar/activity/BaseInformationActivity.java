@@ -17,6 +17,7 @@ import com.jcsoft.ecar.db.ProvinceInfoDao;
 import com.jcsoft.ecar.http.DHttpUtils;
 import com.jcsoft.ecar.http.DRequestParamsUtils;
 import com.jcsoft.ecar.http.HttpConstants;
+import com.jcsoft.ecar.utils.CommonUtils;
 import com.jcsoft.ecar.view.RowLabelValueView;
 import com.jcsoft.ecar.view.wheel.AddressThreeWheelViewDialog;
 
@@ -92,7 +93,12 @@ public class BaseInformationActivity extends BaseActivity implements RowLabelVal
             workPhoneRowLabelValueView.setValue(userInfoBean.getWorkPhone());
             areaRowLabelValueView.setValue(userInfoBean.getProvince() + "-" + userInfoBean.getCity() + "-" + userInfoBean.getArea());
             addressRowLabelValueView.setValue(userInfoBean.getAddress());
-            belongsToUnitRowLabelValueView.setValue(userInfoBean.getOrgName());
+            if(!CommonUtils.strIsEmpty(userInfoBean.getOrgName())){
+                belongsToUnitRowLabelValueView.setVisibility(View.VISIBLE);
+                belongsToUnitRowLabelValueView.setValue(userInfoBean.getOrgName());
+            }else{
+                belongsToUnitRowLabelValueView.setVisibility(View.GONE);
+            }
         }
         dialog = new AddressThreeWheelViewDialog(this);
         provinceDao = new ProvinceInfoDao(this);

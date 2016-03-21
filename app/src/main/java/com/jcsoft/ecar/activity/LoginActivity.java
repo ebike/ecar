@@ -56,6 +56,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     TextView bookInstallTV;
     private String loginName;
     private String password;
+    private boolean isUpdate;
 
     @Override
     public void loadXml() {
@@ -86,30 +87,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         bookInstallTV.setOnClickListener(this);
         loginNameET.addTextChangedListener(this);
         passwordET.addTextChangedListener(this);
-//        loginNameET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    loginNameIV.setImageResource(R.mipmap.icon_login_name_focus);
-//                    loginNameLine.setBackgroundColor(getResources().getColor(R.color.blue));
-//                } else {
-//                    loginNameIV.setImageResource(R.mipmap.icon_login_name);
-//                    loginNameLine.setBackgroundColor(getResources().getColor(R.color.gray_2));
-//                }
-//            }
-//        });
-//        passwordET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    passwordIV.setImageResource(R.mipmap.icon_login_password_focus);
-//                    passwordLine.setBackgroundColor(getResources().getColor(R.color.blue));
-//                } else {
-//                    passwordIV.setImageResource(R.mipmap.icon_login_password);
-//                    passwordLine.setBackgroundColor(getResources().getColor(R.color.gray_2));
-//                }
-//            }
-//        });
     }
 
     @Override
@@ -127,22 +104,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                Rect rect = new Rect();
-                //获取root在窗体的可视区域
-                root.getWindowVisibleDisplayFrame(rect);
-                //获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
-                int rootInvisibleHeight = root.getRootView().getHeight() - rect.bottom;
-                //若不可视区域高度大于100，则键盘显示
-                if (rootInvisibleHeight > 100) {
-                    int[] location = new int[2];
-                    //获取scrollToView在窗体的坐标
-                    scrollToView.getLocationInWindow(location);
-                    //计算root滚动高度，使scrollToView在可见区域
-                    int srollHeight = (location[1] + scrollToView.getHeight()) - rect.bottom;
-                    root.scrollTo(0, srollHeight);
+                if (isUpdate) {
+                    isUpdate = false;
                 } else {
-                    //键盘隐藏
-                    root.scrollTo(0, 0);
+                    Rect rect = new Rect();
+                    //获取root在窗体的可视区域
+                    root.getWindowVisibleDisplayFrame(rect);
+                    //获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
+                    int rootInvisibleHeight = root.getRootView().getHeight() - rect.bottom;
+                    //若不可视区域高度大于100，则键盘显示
+                    if (rootInvisibleHeight > 100) {
+                        int[] location = new int[2];
+                        //获取scrollToView在窗体的坐标
+                        scrollToView.getLocationInWindow(location);
+                        //计算root滚动高度，使scrollToView在可见区域
+                        int srollHeight = (location[1] + scrollToView.getHeight()) - rect.bottom;
+                        root.scrollTo(0, srollHeight);
+                    } else {
+                        //键盘隐藏
+                        root.scrollTo(0, 0);
+                    }
                 }
             }
         });
@@ -221,6 +202,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void afterTextChanged(Editable s) {
+        isUpdate = true;
         String loginName = loginNameET.getText().toString().trim();
         String password = passwordET.getText().toString().trim();
         if (!CommonUtils.strIsEmpty(loginName)) {

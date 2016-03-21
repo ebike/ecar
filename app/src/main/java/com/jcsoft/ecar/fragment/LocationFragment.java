@@ -216,6 +216,8 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
             aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
             aMap.setOnInfoWindowClickListener(this);
             uiSettings = aMap.getUiSettings();
+            //显示指南针
+            uiSettings.setCompassEnabled(true);
             //不显示缩放按键
             uiSettings.setZoomControlsEnabled(false);
             //显示比例尺
@@ -822,7 +824,7 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        if (marker != null) {
+        if (marker != null && this.marker.equals(marker)) {
             if (carPopupWindow == null) {
                 carPopupWindow = CommonUtils.createAbovePopupWindow(carStatusView);
                 carPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {

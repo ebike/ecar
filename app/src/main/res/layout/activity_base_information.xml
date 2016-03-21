@@ -111,6 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
         app:row_label_value_bottom_line="1"
         app:row_label_value_label="@string/belongs_to_unit"
         app:row_label_value_top_line="1" />
