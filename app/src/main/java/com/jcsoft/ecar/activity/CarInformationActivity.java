@@ -112,6 +112,7 @@ public class CarInformationActivity extends BaseActivity implements RowLabelValu
                     .setLoadingDrawableId(R.mipmap.img_default_car)
                     .setFailureDrawableId(R.mipmap.img_default_car)
                     .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+                    .setUseMemCache(false)
                     .build();
             x.image().bind(carPhotoImageView, carInfoBean.getCarPic(), imageOptions);
         }
@@ -270,7 +271,7 @@ public class CarInformationActivity extends BaseActivity implements RowLabelValu
     }
 
     //根据当前操作的照片进行赋值
-    private void uploadImage(ImageItem imageItem) {
+    private void uploadImage(final ImageItem imageItem) {
         //由于目前没有查看图片，每次选择图片都是覆盖更新，所以，只用到路径字段，其他字段预留
         if (imageItem != null && !CommonUtils.strIsEmpty(imageItem.sourcePath)) {
             //对图片做压缩处理

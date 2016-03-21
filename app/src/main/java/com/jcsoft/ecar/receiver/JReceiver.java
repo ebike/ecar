@@ -51,19 +51,19 @@ public class JReceiver extends BroadcastReceiver {
                 AppConfig.eventMsg = msg;
             } else {
                 switch (eventType) {
-                    case 0://电子围栏关闭超时
+                    case 8://电子围栏关闭超时
                         EventBus.getDefault().post(new RemoteVFEvent("1", msg));
                         break;
-                    case 1://电子围栏关闭成功
+                    case 7://电子围栏关闭成功
                         EventBus.getDefault().post(new RemoteVFEvent("0", msg));
                         break;
-                    case 2://电子围栏开启超时
+                    case 6://电子围栏开启超时
                         EventBus.getDefault().post(new RemoteVFEvent("0", msg));
                         break;
-                    case 3://电子围栏开启成功
+                    case 5://电子围栏开启成功
                         EventBus.getDefault().post(new RemoteVFEvent("1", msg));
                         break;
-                    case 5://账号在其他设备登录被迫下线
+                    case 10://账号在其他设备登录被迫下线
                         EventBus.getDefault().post(new OnlineExceptionEvent(true, msg));
                         break;
                     default:
@@ -81,9 +81,9 @@ public class JReceiver extends BroadcastReceiver {
             ReceiveExtraBean receiveExtraBean = new Gson().fromJson(extra, ReceiveExtraBean.class);
             int eventType = receiveExtraBean.eventType;
             int fragmentPosition = 0;
-            if (eventType == 4) {//报警消息
+            if (eventType == 9) {//报警消息
                 fragmentPosition = 2;
-            } else if (eventType == 6) {//您昨日的统计数据已生成，请点击查看
+            } else if (eventType == 11) {//您昨日的统计数据已生成，请点击查看
                 fragmentPosition = 1;
             }
             Intent i = new Intent(context, MainActivity.class);
@@ -135,27 +135,5 @@ public class JReceiver extends BroadcastReceiver {
             }
         }
         return sb.toString();
-    }
-
-    //send msg to MainActivity
-    private void processCustomMessage(Context context, Bundle bundle) {
-//        if (MainActivity.isForeground) {
-//            String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-//            String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-//            Intent msgIntent = new Intent(MainActivity.MESSAGE_RECEIVED_ACTION);
-//            msgIntent.putExtra(MainActivity.KEY_MESSAGE, message);
-//            if (!ExampleUtil.isEmpty(extras)) {
-//                try {
-//                    JSONObject extraJson = new JSONObject(extras);
-//                    if (null != extraJson && extraJson.length() > 0) {
-//                        msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
-//                    }
-//                } catch (JSONException e) {
-//
-//                }
-//
-//            }
-//            context.sendBroadcast(msgIntent);
-//        }
     }
 }

@@ -162,7 +162,11 @@ public class BaseInformationActivity extends BaseActivity implements RowLabelVal
                 startActivity(intent);
                 break;
             case R.id.rlvv_area:
-                dialog.setData(mProvinceList);
+                if (userInfoBean != null) {
+                    dialog.setData(mProvinceList, userInfoBean.getProvince(), userInfoBean.getCity(), userInfoBean.getArea());
+                } else {
+                    dialog.setData(mProvinceList);
+                }
                 dialog.show(new AddressThreeWheelViewDialog.ConfirmAction() {
                     @Override
                     public void doAction(LocationJson root, LocationJson child, LocationJson child2) {
@@ -179,7 +183,7 @@ public class BaseInformationActivity extends BaseActivity implements RowLabelVal
                                 ResponseBean<UserInfoBean> bean = new Gson().fromJson(result, new TypeToken<ResponseBean<UserInfoBean>>() {
                                 }.getType());
                                 if (bean.getCode() == 1) {
-                                   onEvent(bean.getData());
+                                    onEvent(bean.getData());
                                     //更新缓存
                                     AppConfig.userInfoBean = bean.getData();
                                 } else {

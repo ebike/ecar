@@ -89,7 +89,7 @@ import de.greenrobot.event.EventBus;
  * Created by jimmy on 15/12/28.
  */
 public class LocationFragment extends BaseFragment implements Runnable, View.OnClickListener,
-        AMap.OnMapClickListener, AMapNaviListener, AMap.OnInfoWindowClickListener, GeocodeSearch.OnGeocodeSearchListener {
+        AMap.OnMapClickListener, AMapNaviListener, AMap.OnMarkerClickListener, AMap.OnInfoWindowClickListener, GeocodeSearch.OnGeocodeSearchListener {
     @ViewInject(R.id.top_bar)
     TopBarView topBarView;
     @ViewInject(R.id.map_view)
@@ -201,7 +201,7 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
         topBarView.setLeftCallback(new TopBarView.TopBarLeftCallback() {
             @Override
             public void setLeftOnClickListener() {
-                ((MainActivity)getActivity()).setMenuToggle();
+                ((MainActivity) getActivity()).setMenuToggle();
             }
         });
     }
@@ -213,6 +213,7 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
         if (aMap == null) {
             aMap = mapView.getMap();
             aMap.setOnMapClickListener(this);
+            aMap.setOnMarkerClickListener(this);// 设置点击marker事件监听器
             aMap.setOnInfoWindowClickListener(this);
             uiSettings = aMap.getUiSettings();
             //不显示缩放按键
@@ -317,7 +318,7 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
                     if (locInfoBean.getIsOnline().equals("1")) {
                         onlineStatusTextView.setText("在线");
                     } else {
-                        onlineStatusTextView.setText("不在线");
+                        onlineStatusTextView.setText("离线");
                     }
                     if (locInfoBean.getAcc().equals("1")) {
                         accTextView.setText("开启");
@@ -817,6 +818,29 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
         NaviLatLng startP = new NaviLatLng(startPoint.getLatitude(), startPoint.getLongitude());
         NaviLatLng endP = new NaviLatLng(stopPoint.getLatitude(), stopPoint.getLongitude());
         AMapNavi.getInstance(getActivity()).calculateWalkRoute(startP, endP);
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        if (marker != null) {
+            if (carPopupWindow == null) {
+                carPopupWindow = CommonUtils.createAbovePopupWindow(carStatusView);
+                carPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        carStatusImageView.setImageResource(R.mipmap.icon_car_status);
+                    }
+                });
+            }
+            int popupWidth = carStatusView.getMeasuredWidth();
+            int popupHeight = carStatusView.getMeasuredHeight();
+            int[] vLocation = new int[2];
+            carStatusImageView.getLocationOnScreen(vLocation);
+            carPopupWindow.showAtLocation(carStatusImageView, Gravity.NO_GRAVITY, (vLocation[0] + carStatusImageView.getWidth() / 2) - popupWidth / 2,
+                    vLocation[1] - popupHeight);
+            carStatusImageView.setImageResource(R.mipmap.close_car_status_tip);
+        }
+        return false;
     }
 
     @Override

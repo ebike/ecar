@@ -81,9 +81,8 @@ public class UpdateTextValueActivity extends BaseActivity {
                                 ResponseBean<UserInfoBean> bean = new Gson().fromJson(result, new TypeToken<ResponseBean<UserInfoBean>>() {
                                 }.getType());
                                 if (bean.getCode() == 1) {
-                                    EventBus.getDefault().post(bean.getData());
-                                    //更新缓存
                                     AppConfig.userInfoBean = bean.getData();
+                                    EventBus.getDefault().post(bean.getData());
                                 } else {
                                     showShortText(bean.getErrmsg());
                                 }

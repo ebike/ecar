@@ -17,12 +17,15 @@ import com.jcsoft.ecar.activity.BaseInformationActivity;
 import com.jcsoft.ecar.activity.CarInformationActivity;
 import com.jcsoft.ecar.activity.MainActivity;
 import com.jcsoft.ecar.activity.WebActivity;
+import com.jcsoft.ecar.bean.UserInfoBean;
 import com.jcsoft.ecar.callback.DSingleDialogCallback;
 import com.jcsoft.ecar.constants.AppConfig;
 import com.jcsoft.ecar.utils.CommonUtils;
 
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by jimmy on 16/3/13.
@@ -50,6 +53,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.navigation, container, false);
         x.view().inject(this, view);
+        EventBus.getDefault().register(this);
         initDatas();
         initListeners();
         return view;
@@ -114,5 +118,17 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 });
                 break;
         }
+    }
+
+    public void onEvent(UserInfoBean user) {
+        if (user != null) {
+            initDatas();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

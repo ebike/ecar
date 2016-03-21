@@ -162,7 +162,7 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
                 if (bean.getCode() == 1) {
                     try {
                         boolean isUpdate = false;
-                        if (dayDataBeans == null) {
+                        if (dayDataBeans == null || dayDataBeans.size() == 0) {
                             dayDataBeans = new ArrayList<DayDataBean>();
                         } else {
                             if (dayDataBeans.get(dayDataBeans.size() - 1).getDate().equals(bean.getData().getDate())) {
@@ -411,6 +411,7 @@ public class ChartFragment extends BaseFragment implements View.OnClickListener 
         barDataSet.setValueTextColor(getResources().getColor(R.color.white));
         barDataSet.setValueTextSize(14f);
         barDataSet.setValueFormatter(ReportUtils.formatterOnePoint);
+        barDataSet.setHighLightColor(getResources().getColor(R.color.chart_data));
         ArrayList<BarDataSet> barDataSets = new ArrayList<BarDataSet>();
         barDataSets.add(barDataSet);
         barDataSet.setBarSpacePercent(30);

@@ -223,7 +223,7 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     public void onEvent(FinishActivityEvent event) {
-        if (event != null && event.isFinish() && event.getTarget().equals("BaseActivity")) {
+        if (event != null && event.isFinish() && event.getTarget() != null && event.getTarget().equals("BaseActivity")) {
             this.finish();
         }
     }
