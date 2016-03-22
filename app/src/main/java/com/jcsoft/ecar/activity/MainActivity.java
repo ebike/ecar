@@ -201,6 +201,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 mExitTime = System.currentTimeMillis();
                 showLongText("再按一次退出程序");
             } else {
+                AppConfig.isExecuteVF = null;
                 this.finish();
             }
             return true;

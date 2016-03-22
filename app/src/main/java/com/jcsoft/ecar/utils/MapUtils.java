@@ -7,42 +7,34 @@ public class MapUtils {
 
     /**
      * 根据航向返回反向
+     *
      * @param heading
      * @return
      */
-    public static String directionStr(int heading)
-    {
-        String d = "";
-        if(heading > 22.5 && heading <= 67.5)
-        {
+    public static String directionStr(int heading) {
+        String d = "未知";
+        if (heading > 0 && heading < 90) {
             d = "东北方向";
         }
-        if(heading > 67.5 && heading <= 112.5)
-        {
-            d = "正北方向";
+        if (heading == 90) {
+            d = "正东方向";
         }
-        if(heading > 112.5 && heading <= 157.5)
-        {
+        if (heading > 90 && heading < 180) {
             d = "东南方向";
         }
-        if(heading > 157.5 && heading <= 202.5)
-        {
+        if (heading == 180) {
             d = "正南方向";
         }
-        if(heading > 202.5 && heading <= 247.5)
-        {
+        if (heading > 180 && heading < 270) {
             d = "西南方向";
         }
-        if(heading > 247.5 && heading <= 292.5)
-        {
+        if (heading == 270) {
             d = "正西方向";
         }
-        if(heading > 292.5 && heading <= 337.5)
-        {
+        if (heading > 270 && heading < 360) {
             d = "西北方向";
         }
-        if(heading > 337.5 || heading <= 22.5)
-        {
+        if (heading == 0 || heading == 360) {
             d = "正北方向";
         }
         return d;

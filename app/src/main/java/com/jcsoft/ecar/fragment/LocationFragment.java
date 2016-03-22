@@ -55,6 +55,7 @@ import com.jcsoft.ecar.bean.ResponseBean;
 import com.jcsoft.ecar.bean.TrackBean;
 import com.jcsoft.ecar.callback.DCommonCallback;
 import com.jcsoft.ecar.callback.DSingleDialogCallback;
+import com.jcsoft.ecar.callback.ScreenListener;
 import com.jcsoft.ecar.constants.AppConfig;
 import com.jcsoft.ecar.event.ChangeLocationEvent;
 import com.jcsoft.ecar.event.RemoteVFEvent;
@@ -168,6 +169,7 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
     //地图导航类
     private AMapNavi mapNavi;
     private PreferencesUtil preferencesUtil;
+    private ScreenListener screenListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -182,6 +184,7 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
         EventBus.getDefault().register(this);
         isPrepared = true;
         mapView.onCreate(savedInstanceState);
+        screenListener = new ScreenListener(getActivity());
         init();
         //第一次定位汽车位置
         requestDatas();
@@ -202,6 +205,22 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
             @Override
             public void setLeftOnClickListener() {
                 ((MainActivity) getActivity()).setMenuToggle();
+            }
+        });
+        screenListener.begin(new ScreenListener.ScreenStateListener() {
+            @Override
+            public void onScreenOn() {
+                requestDatas();
+            }
+
+            @Override
+            public void onScreenOff() {
+
+            }
+
+            @Override
+            public void onUserPresent() {
+
             }
         });
     }
@@ -285,7 +304,8 @@ public class LocationFragment extends BaseFragment implements Runnable, View.OnC
                             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_car_offline));
                         }
                         marker = aMap.addMarker(markerOptions);
-                        marker.setRotateAngle(locInfoBean.getHeading());
+                        marker.setRotateAngle(360 - locInfoBean.getHeading());
+                        marker.setAnchor(0.5f, 0.5f);
                         CameraUpdate cu = CameraUpdateFactory.changeLatLng(position);
                         aMap.moveCamera(cu);
                         //判断电子围栏

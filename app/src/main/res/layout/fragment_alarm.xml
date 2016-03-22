@@ -15,25 +15,32 @@
         app:has_left_clickable="true"
         app:left_icon="@mipmap/icon_title_user" />
 
-    <com.jcsoft.ecar.view.pullrefresh.PullToRefreshListView
-        android:id="@+id/pull_list_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray_bg"
-        android:divider="@null"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:listSelector="@android:color/transparent"
-        android:scrollbars="none"
-        android:scrollingCache="false"
-        android:smoothScrollbar="true" />
+        android:layout_height="match_parent">
 
-    <com.jcsoft.ecar.view.pullrefresh.EmptyViewForList
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:empty_btn_visibility="gone" />
+        <com.jcsoft.ecar.view.pullrefresh.EmptyViewForList
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:empty_btn_visibility="gone"
+            app:empty_iv_src="@mipmap/empty" />
+
+        <com.jcsoft.ecar.view.pullrefresh.PullToRefreshListView
+            android:id="@+id/pull_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray_bg"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"
+            android:scrollingCache="false"
+            android:smoothScrollbar="true" />
+
+    </FrameLayout>
+
 </LinearLayout>

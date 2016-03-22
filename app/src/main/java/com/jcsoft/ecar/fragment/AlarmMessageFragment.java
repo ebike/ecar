@@ -101,7 +101,7 @@ public class AlarmMessageFragment extends BaseListFragment {
         topBarView.setLeftCallback(new TopBarView.TopBarLeftCallback() {
             @Override
             public void setLeftOnClickListener() {
-                ((MainActivity)getActivity()).setMenuToggle();
+                ((MainActivity) getActivity()).setMenuToggle();
             }
         });
         pullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
@@ -229,7 +229,9 @@ public class AlarmMessageFragment extends BaseListFragment {
                             //将数据插入数据库
                             insertAlarmMessageBeansToDB(bean.getData());
                         } else {
-                            showShortText(bean.getErrmsg());
+                            pullToRefreshListView.setBackgroundColor(getResources().getColor(R.color.transparent));
+                            emptyViewForList.setTextSize(16);
+                            emptyViewForList.setTextDesc(bean.getErrmsg());
                         }
                     }
                 });
@@ -242,12 +244,11 @@ public class AlarmMessageFragment extends BaseListFragment {
     //刷新界面
     private void setViewData() {
         if (alarmMessageBeans != null && alarmMessageBeans.size() > 0) {
-            pullToRefreshListView.setVisibility(View.VISIBLE);
-            emptyViewForList.setVisibility(View.GONE);
+            pullToRefreshListView.setBackgroundColor(getResources().getColor(R.color.gray_bg));
             adapter.setList(alarmMessageBeans);
         } else {
-            pullToRefreshListView.setVisibility(View.GONE);
-            emptyViewForList.setVisibility(View.VISIBLE);
+            pullToRefreshListView.setBackgroundColor(getResources().getColor(R.color.transparent));
+            emptyViewForList.setTextSize(16);
             emptyViewForList.setTextDesc("你还没有消息哦");
         }
     }
